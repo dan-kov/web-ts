@@ -7,7 +7,23 @@ const user = new User({
     age: 22
 });
 
-user.set({age: 44, name: 'Teste2'});
-user.set({age: 54});
-console.log(user);
+user.on('change', ()=>{
+      console.log('Change #1');
+      
+});
+user.on('change', ()=>{
+    console.log('Change #2');
+    
+      
+});
+user.on('teste', ()=>{
+    console.log('teste event');
+    
+});
+
+
+user.trigger('change');
+user.trigger('teste');
+user.trigger('undef');
+
 
