@@ -1,29 +1,10 @@
 import { User } from "./models/User";
 
 
-
-const user = new User({
-    name: 'MyName',
-    age: 22
-});
-
-user.on('change', ()=>{
-      console.log('Change #1');
-      
-});
-user.on('change', ()=>{
-    console.log('Change #2');
-    
-      
-});
-user.on('teste', ()=>{
-    console.log('teste event');
-    
-});
+const user = new User({id: 1});
+user.set({name: 'new name', age: 90});
+user.save();
 
 
-user.trigger('change');
-user.trigger('teste');
-user.trigger('undef');
-
-
+const new_usr = new User({age:0, name:"baby"});
+new_usr.save();
