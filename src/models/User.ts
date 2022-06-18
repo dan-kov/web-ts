@@ -2,6 +2,7 @@ import { ApiSync } from "./ApiSync";
 import { Attributes } from "./Attributes";
 import {Eventing} from './Eventing'
 import { Model } from "./Model";
+import { Collection } from "./Collection";
 
 
 
@@ -33,5 +34,11 @@ export class User extends Model<UserProps>{
             new ApiSync<UserProps>(rootUrl)
         );
     }    
+
+    static buildUserCollection(): Collection<User, UserProps>{
+        return new Collection<User, UserProps>(
+            rootUrl,
+            User.buildUser);
+    }
 
 }
