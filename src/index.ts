@@ -13,5 +13,9 @@ user.on('change', ()=>{
 user.fetch();
 
 
+user.set({name: 'newer name'});
+user.save();
+
+
 
 
