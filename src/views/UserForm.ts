@@ -5,7 +5,7 @@ import { User } from "../models/User";
 export class UserForm{
     
     constructor(
-        public parent: HTMLElement | null, 
+        public parent: HTMLElement, 
         public model: User
     ){ 
         this.bindModel();
@@ -19,12 +19,23 @@ export class UserForm{
 
     eventsMap(): {[key : string]: () => void }{
         return {
-            'click:#btn-set-age': this.onSetAgeClick
+            'click:#btn-set-age': this.onSetAgeClick,
+            'click:#btn-set-name': this.onSetNameClick
         }
     }
 
     onSetAgeClick = (): void => {
         this.model.setRandomAge();        
+    }
+
+    onSetNameClick = (): void => {
+        if(this.parent){
+            const input = this.parent.querySelector('input');
+            if(input){
+                const name = input?.value;
+                this.model.set({name});
+            }            
+        }
     }
 
     template(): string{
@@ -33,8 +44,8 @@ export class UserForm{
                 <h1>User Form</h1>
                 <div>User name: ${this.model.get('name')}</div>
                 <div>Age: ${this.model.get('age')}</div>
-                <input />
-                <button>Click</button>
+                <input  />
+                <button id='btn-set-name'>Change Name</button>
                 <button id='btn-set-age'>Set Random Age</button>
             </div>
         `;
@@ -55,15 +66,13 @@ export class UserForm{
     }
 
     render(): void{
-        if(this.parent){
-            this.parent.innerHTML = '';
+        this.parent.innerHTML = '';
 
-            const templateElement = document.createElement('template');
-            templateElement.innerHTML = this.template();
+        const templateElement = document.createElement('template');
+        templateElement.innerHTML = this.template();
 
-            this.bindEvents(templateElement.content);
+        this.bindEvents(templateElement.content);
 
-            this.parent.append(templateElement.content);
-        }
+        this.parent.append(templateElement.content);
     }
 }
