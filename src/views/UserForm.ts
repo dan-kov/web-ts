@@ -1,22 +1,22 @@
+import { Model } from "../models/Model";
+import { User } from "../models/User";
 
 
 export class UserForm{
-    constructor(public parent: HTMLElement | null) {}
+    
+    constructor(
+        public parent: HTMLElement | null, 
+        public model: User
+    ) {}
 
     eventsMap(): {[key : string]: () => void }{
         return {
-            'click:button': this.onButtonClick,
-            'mouseenter:h1': this.onHeadHover
+            'click:#btn-set-age': this.onSetAgeClick
         }
     }
 
-    onButtonClick(){
-        console.log("Click!!");
-        
-    }
-
-    onHeadHover(){
-        console.log('hover');
+    onSetAgeClick():void{
+        console.log('clicked!');
         
     }
 
@@ -24,8 +24,11 @@ export class UserForm{
         return `
             <div>
                 <h1>User Form</h1>
+                <div>User name: ${this.model.get('name')}</div>
+                <div>Age: ${this.model.get('age')}</div>
                 <input />
                 <button>Click</button>
+                <button id='btn-set-age'>Set Random Age</button>
             </div>
         `;
     }
