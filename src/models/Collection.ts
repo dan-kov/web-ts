@@ -18,15 +18,15 @@ export class Collection<T, K>{
         return this.events.trigger;
     }
 
-    fetch(): void{
+    fetch = (): void => {
         axios.get(this.rootURL)
             .then((response: AxiosResponse):void => {
                 response.data.forEach( (value: K) => {
                     this.models.push(this.desserialize(value));
-                })
+                });
+               
+                this.trigger('change');
             });
-
-        this.trigger('change');
     }
 
 }
